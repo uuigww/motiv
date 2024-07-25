@@ -1,0 +1,406 @@
+@font-face {
+  font-family: "SF Display Reg";
+  src: url("/src/fonts/SF-Pro-Display-Regular.otf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Display Med";
+  src: url("/src/fonts/SF-Pro-Display-Medium.otf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Rounded Reg";
+  src: url("/src/fonts/SF-Pro-Rounded-Regular.otf") format("truetype");
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Rounded Med";
+  src: url("/src/fonts/SF-Pro-Rounded-Medium.otf") format("truetype");
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Rounded Bold";
+  src: url("/src/fonts/SF-Pro-Rounded-Bold.otf") format("truetype");
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+}
+
+:root {
+  font-family: "SF Display Reg", -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #000000;
+  background-color: #f2f2f7;
+
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.body {
+  margin: 16px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  min-height: 60px;
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  list-style-type: none;
+  box-sizing: border-box;
+  padding: 0 11px 0 11px;
+  margin: 10px 0 0 0;
+  font-size: 20px;
+  border-width: 0;
+  flex: 1;
+  transition: 200ms;
+  box-shadow: inset 8px 0 0 0 #ffffff;
+}
+
+.task img {
+  height: 35px;
+}
+
+.task .title {
+  font-family: "SF Rounded Med";
+}
+
+.task .cost {
+  font-family: "SF Display Reg";
+}
+
+.task > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.page {
+  text-decoration: none;
+  transition: 200ms;
+  border-radius: 10px;
+  border-width: 0;
+  height: 43px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  color: #007aff;
+  padding: 0 10px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  gap: 10px;
+  font-family: "SF Rounded Med";
+}
+
+.page:active,
+.task:active,
+.withdraw button:active,
+button.invite:active {
+  transition: 200ms;
+  transform: scale(0.98);
+}
+
+.availableTasks {
+  margin: 20px 0 0 0;
+}
+
+div.TaskList {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.balance {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-family: "SF Display Reg";
+  margin: 0 0 25px 0;
+}
+
+.balance > h1 {
+  font-family: "SF Rounded Bold";
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 48px;
+}
+
+.balance > h1 > span,
+.balance > h1 > p > span {
+  font-size: 32px;
+}
+
+.balance > h1 > span {
+  opacity: 50%;
+}
+
+.balance > h3 {
+  font-weight: 500;
+}
+
+header {
+  height: 34px;
+  background-color: #ffffff;
+  color: #007aff;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  gap: 10px;
+  font-family: "SF Rounded Med";
+}
+
+.backbtn {
+  height: 34px;
+  width: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagename {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  gap: 5px;
+}
+
+.reflist {
+  margin: 25px 0 0 0;
+}
+.reflist .friendsNum {
+  font-family: "SF Rounded Reg";
+}
+
+.refincome {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 0 25px 0;
+}
+
+.refincome > h3 {
+  font-family: "SF Rounded Med";
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.refincome > h1 {
+  font-weight: 400;
+  font-family: "SF Display Reg";
+  font-size: 42px;
+  margin: 10px 0 0 0;
+}
+
+button.invite{
+  width: 100%;
+  text-decoration: none;
+  font-family: "SF Rounded Med";
+  font-weight: 400;
+  background-color: #007aff;
+  color: #ffffff;
+  transition: 200ms;
+  border-radius: 10px;
+  border-width: 0;
+  font-size: 24px;
+  margin: 10px 0 0 0;
+  padding: 2px 0 4px 0;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.friend {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px 8px 8px;
+  justify-content: space-between;
+  margin: 8px 0 0 0;
+  font-size: 20px;
+}
+
+.friend .avatar {
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+}
+
+.friend > div {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  font-family: "SF Rounded Med";
+}
+
+.friend > .cost {
+  color: #28c281;
+}
+
+.statTab > *{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  padding: 8px 12px;
+}
+
+.statTab {
+  margin: 5px 0 0 0;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.statTab>div>span{
+  color: #8E8E93;
+}
+
+.stat > h3 {
+  font-weight: 600;
+  font-family: 'Sf Rounded Reg';
+}
+
+.withdraw {
+  margin: 10px 0 0 0;
+}
+
+.withdraw > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.withdraw button {
+  margin: 8px 0 0 0;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #007aff;
+  flex: 1;
+  border-width: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  font-family: 'SF Rounded Reg';
+  font-weight: 600;
+}
+.withdraw button > p {
+  margin: 1px 0 0 0;
+}
+
+
+
+
+.content {
+  transition: filter 0.5s ease;
+  z-index: 0;
+}
+
+.content.blur {
+  filter: blur(5px);
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.container {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 89%;
+  max-width: 500px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: bottom 0.5s ease, opacity 0.5s ease;
+  z-index: 2;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.container.open {
+  bottom: 0%;
+  opacity: 1;
+}
+
+a.taskLink {
+  text-decoration: none;
+  font-family: "SF Rounded Med";
+  font-weight: 400;
+  background-color: #007aff;
+  color: #ffffff;
+  transition: 200ms;
+  border-radius: 15px;
+  border-width: 0;
+  font-size: 24px;
+  margin: 10px 0 0 0;
+  padding: 10px 20px;
+  box-shadow: 0px 0px 5px 0px rgba(47, 95, 173, 0.2);
+}
+
+.container > img { 
+  height: 50px;
+}
