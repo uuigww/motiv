@@ -57,14 +57,16 @@ const Friends = (props) => {
 
         <div class="backbtn"></div>
       </header>
-      <div class="body">
+      <div class="body friendsPage">
         <div class="refincome">
           <h3>Реферальный доход</h3>
           <h1>{refIncome.toFixed(2)} ₽</h1>
         </div>
         <button class="invite">Пригласить друга</button>
+
+        <h3 class="friendsNum">Список друзей ({user.friends.length})</h3>
+        
         <div className="reflist">
-          <h3 class="friendsNum">Список друзей ({user.friends.length})</h3>
           <FriendList friends={user.friends}></FriendList>
         </div>
       </div>

@@ -1,7 +1,26 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import Main from "./pages/Main";
-import Friends from "./pages/Friends";
-import Withdraw from "./pages/Withdraw";
+import React, { Suspense, lazy, useEffect, useState  } from 'react';
+
+
+const Main = lazy(() => import("./pages/Main"))
+const Friends = lazy(() => import("./pages/Friends"))
+const Withdraw = lazy(() => import("./pages/Withdraw"))
+
+const Preloader = () => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+    return () => setVisible(false);
+  }, []);
+
+  return (
+    <div className={`preloader ${visible ? 'visible' : ''}`}>
+      <div className="spinner"></div>
+    </div>
+  );
+};
+
 
 function App() {
   let user = {
@@ -43,55 +62,55 @@ function App() {
     ],
     friends: [
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/vlad.jpg",
         income: 15.93,
         name: "Влад",
       },
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/bogdan.jpg",
         income: 10.38,
         name: "Богдан",
       },
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/denis.jpg",
         income: 9.10,
         name: "Денис",
       },
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/vlad.jpg",
         income: 15.93,
         name: "Влад",
       },
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/bogdan.jpg",
         income: 10.38,
         name: "Богдан",
       },
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/denis.jpg",
         income: 9.10,
         name: "Денис",
       },
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/vlad.jpg",
         income: 15.93,
         name: "Влад",
       },
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/bogdan.jpg",
         income: 10.38,
         name: "Богдан",
       },
       {
-        tgid:1,
+        tgid: 1,
         avatar: "/denis.jpg",
         income: 9.10,
         name: "Денис",
@@ -101,13 +120,14 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Main user={user} />}/>
-        <Route path="/withdraw" element={<Withdraw user={user} />}/>
-        <Route path="/friends" element={<Friends user={user} />}/>
-        <Route path="*" element={<Main />}/>
-      </Routes>
-      
+      <Suspense fallback={<Preloader />}>
+        <Routes>
+          <Route path="/" element={<Main user={user} />} />
+          <Route path="/withdraw" element={<Withdraw user={user} />} />
+          <Route path="/friends" element={<Friends user={user} />} />
+          <Route path="*" element={<Main />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

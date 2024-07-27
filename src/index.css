@@ -15,11 +15,13 @@
   src: url("/src/fonts/SF-Pro-Rounded-Regular.otf") format("truetype");
   font-style: normal;
 }
+
 @font-face {
   font-family: "SF Rounded Med";
   src: url("/src/fonts/SF-Pro-Rounded-Medium.otf") format("truetype");
   font-style: normal;
 }
+
 @font-face {
   font-family: "SF Rounded Bold";
   src: url("/src/fonts/SF-Pro-Rounded-Bold.otf") format("truetype");
@@ -30,8 +32,11 @@
   margin: 0;
 }
 
+html {
+  overflow: hidden;
+}
+
 :root {
-  font-family: "SF Display Reg", -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -82,7 +87,7 @@
   font-family: "SF Display Reg";
 }
 
-.task > div {
+.task>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,7 +147,7 @@ div.TaskList {
   margin: 0 0 25px 0;
 }
 
-.balance > h1 {
+.balance>h1 {
   font-family: "SF Rounded Bold";
   display: flex;
   justify-content: center;
@@ -151,16 +156,16 @@ div.TaskList {
   font-size: 48px;
 }
 
-.balance > h1 > span,
-.balance > h1 > p > span {
+.balance>h1>span,
+.balance>h1>p>span {
   font-size: 32px;
 }
 
-.balance > h1 > span {
+.balance>h1>span {
   opacity: 50%;
 }
 
-.balance > h3 {
+.balance>h3 {
   font-weight: 500;
 }
 
@@ -175,6 +180,10 @@ header {
   font-size: 16px;
   gap: 10px;
   font-family: "SF Rounded Med";
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .backbtn {
@@ -194,14 +203,30 @@ header {
 }
 
 .reflist {
-  margin: 25px 0 0 0;
+  margin: 0 0 50px 0;
 }
+
+.friendsPage{
+  overflow: auto;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.reflist::-webkit-scrollbar, .friendsPage::-webkit-scrollbar {
+  display: none;
+}
+
+.friendsNum {
+  margin: 20px 0 0 0;
+}
+
 .reflist .friendsNum {
   font-family: "SF Rounded Reg";
 }
 
 .refincome {
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: #ffffff;
   display: flex;
@@ -209,22 +234,23 @@ header {
   align-items: center;
   flex-direction: column;
   padding: 10px 0 25px 0;
+  margin: 30px 0 0 0;
 }
 
-.refincome > h3 {
+h3 {
   font-family: "SF Rounded Med";
   font-weight: 400;
   font-size: 24px;
 }
 
-.refincome > h1 {
+.refincome>h1 {
   font-weight: 400;
   font-family: "SF Display Reg";
   font-size: 42px;
   margin: 10px 0 0 0;
 }
 
-button.invite{
+button.invite {
   width: 100%;
   text-decoration: none;
   font-family: "SF Rounded Med";
@@ -241,7 +267,6 @@ button.invite{
 }
 
 .friend {
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: #ffffff;
   display: flex;
@@ -259,18 +284,23 @@ button.invite{
   width: 40px;
 }
 
-.friend > div {
+.friend>div {
   display: flex;
   gap: 15px;
   align-items: center;
   font-family: "SF Rounded Med";
 }
 
-.friend > .cost {
+.friend>.cost {
   color: #28c281;
+  font-family: "SF Display Reg";
 }
 
-.statTab > *{
+.stat {
+  margin: 45px 0 0 0;
+}
+
+.statTab>* {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -279,17 +309,18 @@ button.invite{
 }
 
 .statTab {
+  font-family: "SF Display Reg";
   margin: 5px 0 0 0;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: #ffffff;
 }
 
-.statTab>div>span{
+.statTab>div>span {
   color: #8E8E93;
 }
 
-.stat > h3 {
+.stat>h3 {
   font-weight: 600;
   font-family: 'Sf Rounded Reg';
 }
@@ -298,7 +329,7 @@ button.invite{
   margin: 10px 0 0 0;
 }
 
-.withdraw > div {
+.withdraw>div {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -318,7 +349,8 @@ button.invite{
   font-family: 'SF Rounded Reg';
   font-weight: 600;
 }
-.withdraw button > p {
+
+.withdraw button>p {
   margin: 1px 0 0 0;
 }
 
@@ -360,6 +392,7 @@ button {
 }
 
 .container {
+  font-family: "SF Display Reg";
   position: fixed;
   bottom: -100%;
   left: 50%;
@@ -371,7 +404,7 @@ button {
   border-radius: 10px;
   padding: 20px;
   text-align: center;
-  transition: bottom 0.5s ease, opacity 0.5s ease;
+  transition: bottom 0.7s ease, opacity 0.5s ease;
   z-index: 2;
   opacity: 0;
   display: flex;
@@ -401,6 +434,42 @@ a.taskLink {
   box-shadow: 0px 0px 5px 0px rgba(47, 95, 173, 0.2);
 }
 
-.container > img { 
+.container>img {
   height: 50px;
+}
+
+
+
+/* components/Preloader.css */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.preloader.visible {
+  opacity: 1;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
