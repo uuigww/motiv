@@ -203,7 +203,7 @@ header {
 }
 
 .reflist {
-  margin: 0 0 50px 0;
+  margin: 0 0 100px 0;
 }
 
 .friendsPage{
@@ -382,7 +382,7 @@ button {
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.7s ease;
   pointer-events: none;
 }
 
@@ -397,14 +397,14 @@ button {
   bottom: -100%;
   left: 50%;
   transform: translateX(-50%);
-  width: 89%;
+  width: 90%;
   max-width: 500px;
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 20px;
   text-align: center;
-  transition: bottom 0.7s ease, opacity 0.5s ease;
+  transition: bottom 0.5s ease, opacity 0.5s ease;
   z-index: 2;
   opacity: 0;
   display: flex;
@@ -429,7 +429,7 @@ a.taskLink {
   border-radius: 15px;
   border-width: 0;
   font-size: 24px;
-  margin: 10px 0 0 0;
+  margin: 10px 0 40px 0;
   padding: 10px 20px;
   box-shadow: 0px 0px 5px 0px rgba(47, 95, 173, 0.2);
 }
@@ -440,7 +440,7 @@ a.taskLink {
 
 
 
-/* components/Preloader.css */
+/*Preloader*/
 .preloader {
   position: fixed;
   top: 0;

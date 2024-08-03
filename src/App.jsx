@@ -2,9 +2,9 @@ import { Routes, Route, Link } from 'react-router-dom';
 import React, { Suspense, lazy, useEffect, useState  } from 'react';
 
 
-const Main = lazy(() => import("./pages/Main"))
-const Friends = lazy(() => import("./pages/Friends"))
-const Withdraw = lazy(() => import("./pages/Withdraw"))
+import Main from "./pages/Main"
+import Friends from "./pages/Friends"
+import Withdraw from "./pages/Withdraw"
 
 const Preloader = () => {
   const [visible, setVisible] = useState(false);
