@@ -66,8 +66,8 @@ function App() {
       console.log(error)
     }
   };
-
-  console.log(userData) //userData - данные польза
+  
+  userData() //userData - данные польза
 
   /* let user = {
     tgid: 1,
