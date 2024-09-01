@@ -62,7 +62,7 @@ const Friends = (props) => {
           <h3>Реферальный доход</h3>
           <h1>{refIncome.toFixed(2)} ₽</h1>
         </div>
-        <button class="invite">Пригласить друга</button>
+        <a class="invite" href="https://t.me/share/url?url=https://t.me/{botUsername}?start=ref-{user_id}&text={share_text}" >Пригласить друга</a>
 
         <h3 class="friendsNum">Список друзей ({user.friends.length})</h3>
         

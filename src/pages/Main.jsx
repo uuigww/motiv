@@ -18,6 +18,26 @@ function Balance(props) {
   );
 }
 
+const complete_quest = async (tg_user_id, quest_id) => {
+  try {
+    const res = await fetch('/complete_quest', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tg_user_id: tg_user_id,
+        quest_id: quest_id,
+      }),
+    });
+
+    const data = await res.json();
+    setResponse(data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 function Main(props) {
   let user = props.user;
 
@@ -117,6 +137,7 @@ function Main(props) {
             <h2>{taskInfo.title}</h2>
             <p>{taskInfo.description}</p>
             <a class="taskLink" href={taskInfo.link}>{taskInfo.btnTitle}</a>
+            <button class="taskLink">Проверить</button>
           </>
         )}
       </div>

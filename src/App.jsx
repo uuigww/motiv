@@ -1,6 +1,8 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import React, { Suspense, lazy, useEffect, useState  } from 'react';
 
+import WebApp from '@twa-dev/sdk'
+const tg = window.Telegram.WebApp;
 
 import Main from "./pages/Main"
 import Friends from "./pages/Friends"
@@ -23,14 +25,58 @@ const Preloader = () => {
 
 
 function App() {
-  let user = {
+
+  const queryString = tg.initData
+
+  const parseQueryString = (queryString) => {
+    const params = new URLSearchParams(queryString);
+    const result = {};
+    for (const [key, value] of params) {
+      if (key === 'user') {
+        result[key] = JSON.parse(decodeURIComponent(value));
+      } else {
+        result[key] = decodeURIComponent(value);
+      }
+    }
+  
+    return result;
+  };
+  
+  const WebAppData = parseQueryString(queryString);
+
+  let tg_user_id = WebAppData.user.id //tg id польза
+
+  const userData = async () => {
+    try {
+      const response = await fetch(`/get_user_data?tg_user_id=${tg_user_id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      const data = await response.json();
+      return data;
+
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  console.log(userData) //userData - данные польза
+
+  /* let user = {
     tgid: 1,
     balance: 666.666,
     totalEarn: 999.99,
     tasksComplete: 999,
     tasks: [
       {
-        id: 1,
+        id: 1,  
         title: "Подписка",
         description: "1 Подписка",
         img: "subscribe",
@@ -116,7 +162,7 @@ function App() {
         name: "Денис",
       },
     ],
-  };
+  }; */
 
   return (
     <>
@@ -128,6 +174,8 @@ function App() {
           <Route path="*" element={<Main />} />
         </Routes>
       </Suspense>
+      {/* <p>Webapp</p>
+      {tg.initData} */}
     </>
   );
 }

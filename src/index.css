@@ -116,7 +116,7 @@ html {
 .page:active,
 .task:active,
 .withdraw button:active,
-button.invite:active {
+.invite:active {
   transition: 200ms;
   transform: scale(0.98);
 }
@@ -250,13 +250,16 @@ h3 {
   margin: 10px 0 0 0;
 }
 
-button.invite {
+.invite {
   width: 100%;
   text-decoration: none;
   font-family: "SF Rounded Med";
   font-weight: 400;
   background-color: #007aff;
   color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: 200ms;
   border-radius: 10px;
   border-width: 0;
@@ -318,11 +321,6 @@ button.invite {
 
 .statTab>div>span {
   color: #8E8E93;
-}
-
-.stat>h3 {
-  font-weight: 600;
-  font-family: 'Sf Rounded Reg';
 }
 
 .withdraw {
@@ -402,7 +400,7 @@ button {
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  padding: 20px;
+  padding: 20px 20px 40px 20px;
   text-align: center;
   transition: bottom 0.5s ease, opacity 0.5s ease;
   z-index: 2;
@@ -419,7 +417,7 @@ button {
   opacity: 1;
 }
 
-a.taskLink {
+.taskLink {
   text-decoration: none;
   font-family: "SF Rounded Med";
   font-weight: 400;
@@ -429,15 +427,60 @@ a.taskLink {
   border-radius: 15px;
   border-width: 0;
   font-size: 24px;
-  margin: 10px 0 40px 0;
+  margin: 10px 0 10px 0;
   padding: 10px 20px;
   box-shadow: 0px 0px 5px 0px rgba(47, 95, 173, 0.2);
+}
+button.taskLink {
+  background-color: #007bff72;
 }
 
 .container>img {
   height: 50px;
 }
 
+div.paymentBtns {
+  display: flex;
+  gap: 10px;
+}
+
+form { 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  margin: 20px 0 0 0;
+}
+
+.flex { 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+div.crypto, div.card { 
+  font-family: "SF Rounded Reg";
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+div.crypto > input, div.card > input{ 
+  flex: 1;
+  padding: 0px;
+  border-width: 0;
+  background: #e1e1e1;
+  border-radius: 5px;
+  color: #000000;
+  padding: 5px;
+  font-family: "SF Rounded Reg";
+  border: solid 1px #979797;
+}
+
+div.crypto > input:focus, div.card > input:focus{
+  outline: none !important;
+  background: #eeeeee;
+}
 
 
 /*Preloader*/
