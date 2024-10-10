@@ -2,16 +2,13 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import "../index.css";
 
-function Balance(props) {
-  let [beforeDecimal, afterDecimal] = props.balance.toFixed(2).split(".");
 
+function Balance(props) {
   return (
-    <div class="balance">
+    <div className="balance">
       <h3>Баланс</h3>
       <h1>
-        <p>
-          {beforeDecimal},<span>{afterDecimal}</span>
-        </p>
+        <p>{props.balance}</p>
         <span>₽</span>
       </h1>
     </div>
@@ -20,7 +17,7 @@ function Balance(props) {
 
 const complete_quest = async (tg_user_id, quest_id) => {
   try {
-    const res = await fetch('/complete_quest', {
+    const res = await fetch('https://api.pycuk.ru/complete_quest', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,17 +29,19 @@ const complete_quest = async (tg_user_id, quest_id) => {
     });
 
     const data = await res.json();
-    setResponse(data);
+    return data; // Возвращаем данные, чтобы обновить баланс
   } catch (error) {
     console.error('Error:', error);
   }
 };
 
 function Main(props) {
-  let user = props.user;
 
+  const [user, setUser] = useState(props.user);
   const [isOpen, setIsOpen] = useState(false);
   const [taskInfo, setTaskInfo] = useState(null);
+  const [isClicked, setLinkClick] = useState(false);
+  const [checkBtnStyle, setCheckBtnStyle] = useState({ background: "#73b4f8" });
 
   const handleButtonClick = (info) => {
     setTaskInfo(info);
@@ -60,8 +59,48 @@ function Main(props) {
     }
   };
 
+  const handleLinkClick = () => {
+    setLinkClick(true);
+    setCheckBtnStyle({ background: "#007aff" })
+  }
+
+  const handleCompleteQuest = async () => {
+    if (taskInfo && isClicked) {
+      const response = await complete_quest(user.tgid, taskInfo.id);
+
+      console.log(response)
+
+      if (response.status == "success") {
+        try {
+          const response = await fetch(`https://api.pycuk.ru/get_user_data?tg_user_id=${user.tgid}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          /* if (!response.ok) {
+            throw new Error('ERROR to get user');
+          } */
+
+          const data = await response.json();
+
+          console.log(data)
+
+          setUser(data.user_data);
+          closeContainer();
+
+
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    }
+  };
+
   function TaskList(props) {
-    const TaskList = props.user.tasks.map((task) => {
+
+    const tasks = props.tasks.map((task) => {
       let style = { boxShadow: "0px 4px 5px 0px rgba(0, 0, 0, 0.2)" };
       if (task.color) {
         style.boxShadow = `inset 8px 0px 0px 0px #${task.color}, 0px 4px 5px 0px rgba(0, 0, 0, 0.2)`;
@@ -75,7 +114,7 @@ function Main(props) {
           style={style}
         >
           <div>
-            <img src={task.img+".png"} />
+            <img src={task.img + ".png"} alt={task.title} />
             <span className="title">{task.title}</span>
           </div>
           <span className="cost">{task.cost.toFixed(2)}₽</span>
@@ -83,61 +122,52 @@ function Main(props) {
       );
     });
 
-    return <div className="TaskList">{TaskList}</div>;
+    return <div className="TaskList">{tasks}</div>;
   }
+
   return (
-    <div class="body">
+    <div className="body Main">
       <div className={`content ${isOpen ? "blur" : ""}`}>
-        <Balance balance={user.balance}></Balance>
-        <div class="buttons">
-          <Link to="/withdraw" class="page">
-            <svg
-              height="22"
-              viewBox="0 0 248 176"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.346726 44.551C0.437672 31.8045 0.963296 24.5134 4.00116 18.7065C7.23242 12.5299 12.3884 7.50824 18.7301 4.36112C25.9397 0.783325 35.3775 0.783325 54.2532 0.783325H193.561C212.437 0.783325 221.874 0.783325 229.084 4.36112C235.426 7.50824 240.582 12.5299 243.813 18.7065C246.851 24.5134 247.376 31.8045 247.467 44.551H0.346726Z"
-                fill="#007AFF"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M0.327698 66.4349V123.333C0.327698 141.717 0.327698 150.909 4.00116 157.931C7.23242 164.107 12.3884 169.129 18.7301 172.276C25.9397 175.854 35.3775 175.854 54.2532 175.854H193.561C212.437 175.854 221.874 175.854 229.084 172.276C235.426 169.129 240.582 164.107 243.813 157.931C247.486 150.909 247.486 141.717 247.486 123.333V66.4349H0.327698ZM34.0312 126.615C34.0312 121.517 34.0312 118.968 34.8863 116.957C36.0266 114.276 38.2136 112.146 40.9664 111.035C43.031 110.203 45.6483 110.203 50.8829 110.203H62.1174C67.352 110.203 69.9693 110.203 72.0339 111.035C74.7866 112.146 76.9737 114.276 78.1139 116.957C78.9691 118.968 78.9691 121.517 78.9691 126.615C78.9691 131.714 78.9691 134.263 78.1139 136.274C76.9737 138.955 74.7866 141.085 72.0339 142.195C69.9693 143.028 67.352 143.028 62.1174 143.028H50.8829C45.6483 143.028 43.031 143.028 40.9664 142.195C38.2136 141.085 36.0266 138.955 34.8863 136.274C34.0312 134.263 34.0312 131.714 34.0312 126.615Z"
-                fill="#007AFF"
-              />
-            </svg>
-            Вывод
+        <Balance balance={user.balance} />
+        <div className="buttons">
+          <Link to="/withdraw" className="page">
+            <span>Вывод</span>
           </Link>
-          <Link to="/friends" class="page">
-            <svg
-              height="22"
-              viewBox="0 0 404 191"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M85.8985 94.6054C77.8566 94.6054 70.5221 92.4832 63.8949 88.2389C57.2678 83.9946 51.981 78.2982 48.0346 71.1499C44.1625 64.0015 42.2265 56.0341 42.2265 47.2476C42.2265 38.8334 44.1625 31.1266 48.0346 24.1272C51.981 17.0533 57.2678 11.3942 63.8949 7.14982C70.5221 2.90549 77.8566 0.783325 85.8985 0.783325C94.0148 0.783325 101.387 2.90549 108.014 7.14982C114.641 11.3197 119.89 16.9416 123.762 24.0155C127.709 31.0149 129.682 38.7589 129.682 47.2476C129.682 55.9596 127.709 63.8898 123.762 71.0382C119.89 78.1865 114.641 83.9201 108.014 88.2389C101.387 92.4832 94.0148 94.6054 85.8985 94.6054ZM24.6907 190.661C16.7978 190.661 10.7663 189.135 6.59646 186.082C2.42659 183.029 0.34166 178.524 0.34166 172.567C0.34166 165.866 2.24044 158.829 6.038 151.457C9.91002 144.085 15.5319 137.235 22.9036 130.906C30.2754 124.502 39.248 119.327 49.8216 115.38C60.3952 111.359 72.4208 109.349 85.8985 109.349C99.3761 109.349 111.402 111.359 121.975 115.38C132.549 119.327 141.522 124.502 148.893 130.906C156.265 137.235 161.85 144.085 165.647 151.457C169.519 158.829 171.455 165.866 171.455 172.567C171.455 178.524 169.37 183.029 165.2 186.082C161.031 189.135 155.036 190.661 147.218 190.661H24.6907ZM318.443 94.9405C310.327 94.9405 302.955 92.8183 296.328 88.574C289.775 84.3297 284.526 78.6333 280.579 71.485C276.707 64.2622 274.771 56.2947 274.771 47.5827C274.771 39.1685 276.707 31.4617 280.579 24.4622C284.526 17.3883 289.813 11.7292 296.44 7.4849C303.067 3.24057 310.401 1.1184 318.443 1.1184C326.56 1.1184 333.931 3.24057 340.558 7.4849C347.186 11.6548 352.435 17.2767 356.307 24.3505C360.254 31.35 362.227 39.0568 362.227 47.471C362.227 56.2575 360.254 64.2249 356.307 71.3733C352.435 78.5216 347.186 84.2552 340.558 88.574C333.931 92.8183 326.56 94.9405 318.443 94.9405ZM257.235 190.996C249.342 190.996 243.311 189.433 239.141 186.305C234.971 183.252 232.886 178.785 232.886 172.902C232.886 166.201 234.785 159.164 238.583 151.792C242.455 144.42 248.077 137.57 255.448 131.241C262.82 124.837 271.793 119.662 282.366 115.715C292.94 111.694 304.966 109.684 318.443 109.684C331.921 109.684 343.946 111.694 354.52 115.715C365.094 119.662 374.066 124.837 381.438 131.241C388.81 137.57 394.394 144.42 398.192 151.792C402.064 159.164 404 166.201 404 172.902C404 178.785 401.915 183.252 397.745 186.305C393.575 189.433 387.544 190.996 379.651 190.996H257.235ZM161.738 98.9614C158.462 98.9614 155.632 97.77 153.249 95.3873C150.867 93.0045 149.675 90.1377 149.675 86.7869C149.675 83.5106 150.867 80.681 153.249 78.2982C155.632 75.9155 158.462 74.7241 161.738 74.7241C165.163 74.7241 168.03 75.9155 170.338 78.2982C172.721 80.6066 173.913 83.4361 173.913 86.7869C173.913 90.1377 172.721 93.0045 170.338 95.3873C168.03 97.77 165.163 98.9614 161.738 98.9614ZM202.171 98.9614C198.82 98.9614 195.953 97.77 193.57 95.3873C191.262 93.0045 190.108 90.1377 190.108 86.7869C190.108 83.5106 191.299 80.681 193.682 78.2982C196.065 75.9155 198.894 74.7241 202.171 74.7241C205.522 74.7241 208.388 75.9155 210.771 78.2982C213.154 80.6066 214.345 83.4361 214.345 86.7869C214.345 90.1377 213.154 93.0045 210.771 95.3873C208.388 97.77 205.522 98.9614 202.171 98.9614ZM242.492 98.9614C239.216 98.9614 236.386 97.77 234.003 95.3873C231.621 93.0045 230.429 90.1377 230.429 86.7869C230.429 83.5106 231.621 80.681 234.003 78.2982C236.386 75.9155 239.216 74.7241 242.492 74.7241C245.843 74.7241 248.71 75.9155 251.092 78.2982C253.475 80.6066 254.667 83.4361 254.667 86.7869C254.667 90.1377 253.475 93.0045 251.092 95.3873C248.71 97.77 245.843 98.9614 242.492 98.9614Z"
-                fill="#007AFF"
-              />
-            </svg>
-            Друзья
+          <Link to="/friends" className="page">
+            <span>Друзья</span>
           </Link>
         </div>
-        <h3 class="availableTasks">Доступные задания</h3>
-        <TaskList user={user}></TaskList>
+
+        {user.tasks.length == 0 ? (
+          <div className="noTasks">
+            <h3 className="availableTasks">Доступных заданий нет</h3>
+            <p>Возвращайтесь немного попозже 🙂</p>
+          </div>
+        ) : (
+          <h3 className="availableTasks">Доступные задания</h3>
+        )}
+
+        <TaskList tasks={user.tasks} />
       </div>
 
       {isOpen && <div className="overlay open" onClick={handleOverlayClick} />}
       <div className={`container ${isOpen ? "open" : ""}`}>
         {taskInfo && (
           <>
-            <img src={taskInfo.img+".gif"}/>
+            <img src={taskInfo.img + ".gif"} alt={taskInfo.title} />
             <h2>{taskInfo.title}</h2>
             <p>{taskInfo.description}</p>
-            <a class="taskLink" href={taskInfo.link}>{taskInfo.btnTitle}</a>
-            <button class="taskLink">Проверить</button>
+            <a className="taskLink" href={taskInfo.link} onClick={handleLinkClick}>
+              {taskInfo.btnTitle}
+            </a>
+            {<button
+              className="taskLink"
+              onClick={handleCompleteQuest}
+              disabled={!isClicked}
+              style={checkBtnStyle}
+            >
+              Проверить
+            </button>}
           </>
         )}
       </div>

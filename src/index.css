@@ -52,7 +52,17 @@ html {
 }
 
 .body {
-  margin: 16px;
+  margin: 0;
+  padding: 15px;
+}
+
+.Main {
+  overflow: auto;
+  height: 100vh;
+}
+
+.Main::-webkit-scrollbar, .Main::-webkit-scrollbar {
+  display: none;
 }
 
 .task {
@@ -73,6 +83,22 @@ html {
   flex: 1;
   transition: 200ms;
   box-shadow: inset 8px 0 0 0 #ffffff;
+}
+
+.noTasks {
+  font-family: "SF Display Reg";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "SF Display Reg";
+  text-align: center;
+}
+
+.inviteText {
+  font-family: "SF Display Reg";
+  text-align: center;
+  margin: 3px 0;
 }
 
 .task img {
@@ -128,6 +154,7 @@ html {
 div.TaskList {
   display: flex;
   flex-direction: column;
+  margin:0 0 40px 0;
 }
 
 .buttons {
@@ -348,6 +375,28 @@ h3 {
   font-weight: 600;
 }
 
+.nowithraw {
+  margin: 8px 0 0 0;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  font-family: 'SF Rounded Reg';
+  font-weight: 600;
+}
+.not-enough{
+  background-color: #fe6565;
+}
+
+.success {
+  background-color: #28b338;
+}
+
 .withdraw button>p {
   margin: 1px 0 0 0;
 }
@@ -430,9 +479,6 @@ button {
   margin: 10px 0 10px 0;
   padding: 10px 20px;
   box-shadow: 0px 0px 5px 0px rgba(47, 95, 173, 0.2);
-}
-button.taskLink {
-  background-color: #007bff72;
 }
 
 .container>img {

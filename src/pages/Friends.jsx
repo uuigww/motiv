@@ -21,6 +21,10 @@ const Friends = (props) => {
     refIncome += friend.income;
   });
 
+  const refText = '👥 Здесь платят за выполнение лёгких заданий. Присоединяйся!'
+
+  const refLink = `https://t.me/share/url?url=https://t.me/motiv_test_bot?start=ref-${user.tgid}&text=${refText}`
+
   return (
     <>
       <header>
@@ -62,7 +66,8 @@ const Friends = (props) => {
           <h3>Реферальный доход</h3>
           <h1>{refIncome.toFixed(2)} ₽</h1>
         </div>
-        <a class="invite" href="https://t.me/share/url?url=https://t.me/{botUsername}?start=ref-{user_id}&text={share_text}" >Пригласить друга</a>
+        <div className="inviteText">👥 Пригласи друга и <b>получи 1,5₽ и 15%</b> от его дохода в приложении!</div>
+        <a class="invite" href={refLink}>Пригласить друга</a>
 
         <h3 class="friendsNum">Список друзей ({user.friends.length})</h3>
         

@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "SF Display Reg";
+    src: url("/src/fonts/SF-Pro-Display-Regular.otf") format("truetype");
+    font-style: normal;
+  }
+
+.error-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .error-window {
+    font-family: "SF Display Reg";
+    background-color: #fe6565;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    text-align: center;
+    display: flex;
+  }
+  
+  .error-window p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .close-button {
+    background-color: #fe6565;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    background-color: #ff6666;
+  }
+  
